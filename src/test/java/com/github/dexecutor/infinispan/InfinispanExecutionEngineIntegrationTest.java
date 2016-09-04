@@ -26,6 +26,7 @@ import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.distexec.DefaultExecutorService;
 import org.infinispan.distexec.DistributedExecutorService;
 import org.infinispan.manager.DefaultCacheManager;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.dexecutor.core.DefaultDependentTasksExecutor;
@@ -33,6 +34,7 @@ import com.github.dexecutor.core.DependentTasksExecutor.ExecutionBehavior;
 import com.github.dexecutor.core.DependentTasksExecutorConfig;
 import com.github.dexecutor.core.TaskProvider;
 
+@Ignore
 public class InfinispanExecutionEngineIntegrationTest {
 
 	@Test
