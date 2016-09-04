@@ -2,7 +2,7 @@
 Dexecutor With Distributed Execution Engine (Infinispan)
 
 
-Refer [wiki](https://github.com/dexecutor/dexecutor-core/wiki) or [Project Web site](https://dexecutor.github.io/) for more Details.
+Refer [wiki](https://github.com/dexecutor/dexecutor-infinispan/wiki) or [Project Web site](https://dexecutor.github.io/) for more Details.
 
 ## License
 
