@@ -30,6 +30,7 @@ import org.infinispan.distexec.DistributedExecutorService;
 import com.github.dexecutor.core.ExecutionEngine;
 import com.github.dexecutor.core.graph.Dag.Node;
 /**
+ * Distributed Execution Engine using Infinispan
  * 
  * @author Nadeem Mohammad
  *
