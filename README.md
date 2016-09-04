@@ -1,4 +1,11 @@
 # dexecutor-infinispan
+
+[![Build Status](https://travis-ci.org/dexecutor/dexecutor-infinispan.svg?branch=master)](https://travis-ci.org/dexecutor/dexecutor-infinispan)
+[![Coverage Status](https://coveralls.io/repos/github/dexecutor/dexecutor-infinispan/badge.svg?branch=master)](https://coveralls.io/github/dexecutor/dexecutor-infinispan?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/57cbf2b469d949002f38dd5a/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cbf2b469d949002f38dd5a)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dexecutor/dexecutor-infinispan/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dexecutor/dexecutor-infinispan)
+
+
 Dexecutor With Distributed Execution Engine (Infinispan)
 
 
