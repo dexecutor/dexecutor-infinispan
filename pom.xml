@@ -59,13 +59,15 @@
 
 	<properties>
 		<version.junit>4.12</version.junit>
-		<version.hamcrest>1.3</version.hamcrest>
 		<version.assertj>2.5.0</version.assertj>
 		<version.jmockit>1.26</version.jmockit>
 		<version.commons-lang3>3.4</version.commons-lang3>
 		<version.logback>1.1.7</version.logback>
 		<version.slf4j>1.7.21</version.slf4j>
 		<version.velocity>1.7</version.velocity>
+		<version.infinispan>7.2.5.Final</version.infinispan>
+		<version.dexecutor-core>1.0.0</version.dexecutor-core>
+		
 
 		<version.maven-compiler-plugin>3.5.1</version.maven-compiler-plugin>
 		<version.maven-surefire-plugin>2.19.1</version.maven-surefire-plugin>
@@ -98,12 +100,12 @@
 		<dependency>
 			<groupId>com.github.dexecutor</groupId>
 			<artifactId>dexecutor-core</artifactId>
-			<version>1.0.0</version>
+			<version>${version.dexecutor-core}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-core</artifactId>
-			<version>7.2.5.Final</version>
+			<version>${version.infinispan}</version>
 		</dependency>
 
 		<dependency>
@@ -404,4 +406,7 @@
 	</profiles>
 	
 	
+	<name>Distributed Dexecutor Using Infinispan</name>
+	<url>https://github.com/dexecutor/dexecutor-infinispan</url>
+	<description>Integrate dexecutor with Infinispan to distribute the execution of tasks</description>
 </project>

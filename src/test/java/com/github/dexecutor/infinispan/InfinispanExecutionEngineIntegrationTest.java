@@ -29,24 +29,8 @@ public class InfinispanExecutionEngineIntegrationTest {
 		try {
 			DefaultDependentTasksExecutor<Integer, Integer> dexecutor = newTaskExecutor(distributedExecutorService);
 
-			dexecutor.addDependency(1, 2);
-			dexecutor.addDependency(1, 2);
-			dexecutor.addDependency(1, 3);
-			dexecutor.addDependency(3, 4);
-			dexecutor.addDependency(3, 5);
-			dexecutor.addDependency(3, 6);
-			// executor.addDependency(10, 2); // cycle
-			dexecutor.addDependency(2, 7);
-			dexecutor.addDependency(2, 9);
-			dexecutor.addDependency(2, 8);
-			dexecutor.addDependency(9, 10);
-			dexecutor.addDependency(12, 13);
-			dexecutor.addDependency(13, 4);
-			dexecutor.addDependency(13, 14);
-			dexecutor.addIndependent(11);
-
+			buildGraph(dexecutor);
 			printGraph(dexecutor);
-
 			dexecutor.execute(ExecutionBehavior.RETRY_ONCE_TERMINATING);
 			System.out.println("*** Done ***");
 		} finally {
@@ -59,6 +43,24 @@ public class InfinispanExecutionEngineIntegrationTest {
 
 			}
 		}
+	}
+
+	private void buildGraph(DefaultDependentTasksExecutor<Integer, Integer> dexecutor) {
+		dexecutor.addDependency(1, 2);
+		dexecutor.addDependency(1, 2);
+		dexecutor.addDependency(1, 3);
+		dexecutor.addDependency(3, 4);
+		dexecutor.addDependency(3, 5);
+		dexecutor.addDependency(3, 6);
+		// executor.addDependency(10, 2); // cycle
+		dexecutor.addDependency(2, 7);
+		dexecutor.addDependency(2, 9);
+		dexecutor.addDependency(2, 8);
+		dexecutor.addDependency(9, 10);
+		dexecutor.addDependency(12, 13);
+		dexecutor.addDependency(13, 4);
+		dexecutor.addDependency(13, 14);
+		dexecutor.addIndependent(11);
 	}
 
 	private void printGraph(DefaultDependentTasksExecutor<Integer, Integer> dexecutor) {
