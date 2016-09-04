@@ -19,7 +19,7 @@ import com.github.dexecutor.core.TaskProvider;
 public class InfinispanExecutionEngineIntegrationTest {
 
 	@Test
-	public void test() {
+	public void testDistrutedExecutorService() {
 
 		DefaultCacheManager cacheManager = buildCacheManager();
 		

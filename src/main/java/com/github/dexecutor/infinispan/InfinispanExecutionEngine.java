@@ -30,7 +30,7 @@ public final class InfinispanExecutionEngine<T, R> implements ExecutionEngine<T,
 		this.completionService = new DistributedExecutionCompletionService<Node<T, R>>(executorService);
 	}
 
-	public Future<Node<T, R>> submit(Callable<Node<T, R>> task) {
+	public Future<Node<T, R>> submit(final Callable<Node<T, R>> task) {
 		return this.completionService.submit(new SerializableCallable(task));
 	}
 
@@ -42,24 +42,23 @@ public final class InfinispanExecutionEngine<T, R> implements ExecutionEngine<T,
 		return this.executorService.isShutdown();
 	}
 
-	@Override
-	public String toString() {
-		return this.executorService.toString();
-	}
-
 	private class SerializableCallable implements Callable<Node<T, R>>, Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private Callable<Node<T, R>> task;
-		
-		public SerializableCallable(Callable<Node<T, R>> task) {
-			this.task = task;
+
+		public SerializableCallable(final Callable<Node<T, R>> newTask) {
+			this.task = newTask;
 		}
 
 		@Override
 		public Node<T, R> call() throws Exception {
 			return this.task.call();
-		}
-		
+		}		
+	}
+
+	@Override
+	public String toString() {
+		return this.executorService.toString();
 	}
 }
