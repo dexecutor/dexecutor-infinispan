@@ -19,7 +19,6 @@ package com.github.dexecutor.infinispan;
 
 import static com.github.dexecutor.core.support.Preconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.Future;
@@ -28,7 +27,7 @@ import org.infinispan.distexec.DistributedExecutionCompletionService;
 import org.infinispan.distexec.DistributedExecutorService;
 
 import com.github.dexecutor.core.ExecutionEngine;
-import com.github.dexecutor.core.graph.Dag.Node;
+import com.github.dexecutor.core.graph.Node;
 /**
  * Distributed Execution Engine using Infinispan
  * 
@@ -49,30 +48,15 @@ public final class InfinispanExecutionEngine<T, R> implements ExecutionEngine<T,
 	}
 
 	public Future<Node<T, R>> submit(final Callable<Node<T, R>> task) {
-		return this.completionService.submit(new SerializableCallable(task));
+		return this.completionService.submit(task);
 	}
 
 	public Future<Node<T, R>> take() throws InterruptedException {
-		return this.completionService.take();
+		return completionService.take();
 	}
 
 	public boolean isShutdown() {
 		return this.executorService.isShutdown();
-	}
-
-	private class SerializableCallable implements Callable<Node<T, R>>, Serializable {
-		private static final long serialVersionUID = 1L;
-
-		private Callable<Node<T, R>> task;
-
-		public SerializableCallable(final Callable<Node<T, R>> newTask) {
-			this.task = newTask;
-		}
-
-		@Override
-		public Node<T, R> call() throws Exception {
-			return this.task.call();
-		}		
 	}
 
 	@Override
