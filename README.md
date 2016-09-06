@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/dexecutor/dexecutor-infinispan/badge.svg?branch=master)](https://coveralls.io/github/dexecutor/dexecutor-infinispan?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/57cbf2b469d949002f38dd5a/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cbf2b469d949002f38dd5a)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dexecutor/dexecutor-infinispan/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dexecutor/dexecutor-infinispan)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 Dexecutor With Distributed Execution Engine (Infinispan)
