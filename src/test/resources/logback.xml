@@ -19,12 +19,12 @@
 		<appender-ref ref="CONSOLE" />
 	</logger>
 
-	<logger name="*" level="debug"
+	<logger name="com.github" level="debug"
 		additivity="false">
 		<appender-ref ref="CONSOLE" />
 	</logger>
 
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="CONSOLE" />
 	</root>
 
