@@ -43,7 +43,7 @@ Alternatively you can  pull Dexecutor from the central maven repository, just ad
 <dependency>
   <groupId>com.github.dexecutor</groupId>
   <artifactId>dexecutor-infinispan</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
