@@ -18,6 +18,7 @@ Dexecutor is licensed under **Apache Software License, Version 2.0**.
 
 ## News
 
+* Version **0.0.2** released on 09/10/2016.
 * Version **0.0.1** released on 09/04/2016.
 
 ## Maven Repository
