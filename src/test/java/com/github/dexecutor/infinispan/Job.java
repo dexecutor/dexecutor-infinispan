@@ -27,7 +27,7 @@ public class Job {
 		cache.addListener(new LoggingListener());
 
 		if (isMaster) {
-			DefaultExecutorService distributedExecutorService = new DefaultExecutorService(cacheManager.getCache(cacheName));
+			DefaultExecutorService distributedExecutorService = new DefaultExecutorService(cache);
 			DefaultDependentTasksExecutor<Integer, Integer> dexecutor = newTaskExecutor(distributedExecutorService);
 
 			buildGraph(dexecutor);
@@ -60,13 +60,13 @@ public class Job {
 		return cacheManager;
 	}
 
-	private Configuration cacheConfiguration() {
-		return new ConfigurationBuilder()
-					.clustering()
-					.cacheMode(CacheMode.DIST_SYNC)
-					.hash()
-					.numOwners(2)
-					.build();
+	private GlobalConfiguration globalConfiguration(String nodeName) {
+		return GlobalConfigurationBuilder
+					.defaultClusteredBuilder()
+					.transport()
+					.nodeName(nodeName)
+				    .addProperty("configurationFile", "jgroups.xml")
+				    .build();
 	}
 
 	private Configuration defaultConfiguration() {
@@ -76,13 +76,13 @@ public class Job {
 					.build();
 	}
 
-	private GlobalConfiguration globalConfiguration(String nodeName) {
-		return GlobalConfigurationBuilder
-					.defaultClusteredBuilder()
-					.transport()
-					.nodeName(nodeName)
-				    .addProperty("configurationFile", "jgroups.xml")
-				    .build();
+	private Configuration cacheConfiguration() {
+		return new ConfigurationBuilder()
+					.clustering()
+					.cacheMode(CacheMode.DIST_SYNC)
+					.hash()
+					.numOwners(2)
+					.build();
 	}
 
 	private DefaultDependentTasksExecutor<Integer, Integer> newTaskExecutor(final DistributedExecutorService executorService) {
