@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dexecutor</groupId>
 	<artifactId>dexecutor-infinispan</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	
 	<name>Distributed Dexecutor Using Infinispan</name>
 	<url>https://github.com/dexecutor/dexecutor-infinispan</url>
@@ -35,7 +35,7 @@
 		<connection>scm:git:git://github.com/dexecutor/dexecutor-infinispan.git</connection>
 		<developerConnection>scm:git:git@github.com:dexecutor/dexecutor-infinispan.git</developerConnection>
 		<url>https://github.com/dexecutor/dexecutor-infinispan</url>
-		<tag>HEAD</tag>
+		<tag>dexecutor-infinispan-0.0.3</tag>
 	</scm>
 
 	<distributionManagement>
