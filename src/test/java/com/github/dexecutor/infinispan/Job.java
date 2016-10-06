@@ -12,8 +12,8 @@ import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 
 import com.github.dexecutor.core.DefaultDependentTasksExecutor;
-import com.github.dexecutor.core.DependentTasksExecutor.ExecutionBehavior;
 import com.github.dexecutor.core.DependentTasksExecutorConfig;
+import com.github.dexecutor.core.ExecutionConfig;
 
 public class Job {
 	
@@ -31,7 +31,7 @@ public class Job {
 			DefaultDependentTasksExecutor<Integer, Integer> dexecutor = newTaskExecutor(distributedExecutorService);
 
 			buildGraph(dexecutor);
-			dexecutor.execute(ExecutionBehavior.TERMINATING);
+			dexecutor.execute(ExecutionConfig.TERMINATING);
 		}
 
 		System.out.println("Press Enter to print the cache contents, Ctrl+D/Ctrl+Z to stop.");

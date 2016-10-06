@@ -19,15 +19,20 @@ package com.github.dexecutor.infinispan;
 
 import static com.github.dexecutor.core.support.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.concurrent.CompletionService;
-import java.util.concurrent.Future;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ExecutionException;
 
 import org.infinispan.distexec.DistributedExecutionCompletionService;
 import org.infinispan.distexec.DistributedExecutorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.dexecutor.core.ExecutionEngine;
 import com.github.dexecutor.core.task.ExecutionResult;
 import com.github.dexecutor.core.task.Task;
+import com.github.dexecutor.core.task.TaskExecutionException;
 /**
  * Distributed Execution Engine using Infinispan
  * 
@@ -37,9 +42,13 @@ import com.github.dexecutor.core.task.Task;
  * @param <R>
  */
 public final class InfinispanExecutionEngine<T extends Comparable<T>, R> implements ExecutionEngine<T, R> {
+	
+	private static final Logger logger = LoggerFactory.getLogger(InfinispanExecutionEngine.class);
 
 	private final DistributedExecutorService executorService;
 	private final CompletionService<ExecutionResult<T, R>> completionService;
+	
+	private Collection<T> erroredTasks = new CopyOnWriteArraySet<T>();
 
 	public InfinispanExecutionEngine(final DistributedExecutorService executorService) {
 		checkNotNull(executorService, "Executer Service should not be null");
@@ -47,13 +56,37 @@ public final class InfinispanExecutionEngine<T extends Comparable<T>, R> impleme
 		this.completionService = new DistributedExecutionCompletionService<ExecutionResult<T, R>>(executorService);
 	}
 
-	public Future<ExecutionResult<T, R>> take() throws InterruptedException {
-		return completionService.take();
+	@Override
+	public void submit(Task<T, R> task) {
+		logger.debug("Received Task {} ", task.getId());
+		this.completionService.submit(new SerializableCallable<T, R>(task));			
 	}
 
 	@Override
-	public void submit(Task<T, R> task) {
-		this.completionService.submit(new SerializableCallable<T, R>(task));			
+	public ExecutionResult<T, R> processResult() throws TaskExecutionException {
+
+		ExecutionResult<T, R> executionResult;
+		try {
+			executionResult = completionService.take().get();
+			if (executionResult.isSuccess()) {				
+				erroredTasks.remove(executionResult.getId());
+			} else {
+				erroredTasks.add(executionResult.getId());
+			}
+			return executionResult;
+		} catch (InterruptedException | ExecutionException e) {
+			throw new TaskExecutionException("Task interrupted");
+		}		
+	}
+
+	@Override
+	public boolean isDistributed() {
+		return true;
+	}
+
+	@Override
+	public boolean isAnyTaskInError() {
+		return !this.erroredTasks.isEmpty();
 	}
 
 	@Override
