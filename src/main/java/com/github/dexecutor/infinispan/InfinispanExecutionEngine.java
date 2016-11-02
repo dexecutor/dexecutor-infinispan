@@ -42,7 +42,7 @@ import com.github.dexecutor.core.task.TaskExecutionException;
  * @param <R>
  */
 public final class InfinispanExecutionEngine<T extends Comparable<T>, R> implements ExecutionEngine<T, R> {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(InfinispanExecutionEngine.class);
 
 	private final DistributedExecutorService executorService;

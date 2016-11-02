@@ -27,8 +27,8 @@ import org.infinispan.distexec.DistributedExecutorService;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 
-import com.github.dexecutor.core.DefaultDependentTasksExecutor;
-import com.github.dexecutor.core.DependentTasksExecutorConfig;
+import com.github.dexecutor.core.DefaultDexecutor;
+import com.github.dexecutor.core.DexecutorConfig;
 import com.github.dexecutor.core.ExecutionConfig;
 
 public class Job {
@@ -44,7 +44,7 @@ public class Job {
 
 		if (isMaster) {
 			DefaultExecutorService distributedExecutorService = new DefaultExecutorService(cache);
-			DefaultDependentTasksExecutor<Integer, Integer> dexecutor = newTaskExecutor(distributedExecutorService);
+			DefaultDexecutor<Integer, Integer> dexecutor = newTaskExecutor(distributedExecutorService);
 
 			buildGraph(dexecutor);
 			dexecutor.execute(ExecutionConfig.TERMINATING);
@@ -53,7 +53,7 @@ public class Job {
 		System.out.println("Press Enter to print the cache contents, Ctrl+D/Ctrl+Z to stop.");
 	}
 
-	private void buildGraph(final DefaultDependentTasksExecutor<Integer, Integer> dexecutor) {
+	private void buildGraph(final DefaultDexecutor<Integer, Integer> dexecutor) {
 		dexecutor.addDependency(1, 2);
 		dexecutor.addDependency(1, 2);
 		dexecutor.addDependency(1, 3);
@@ -101,12 +101,12 @@ public class Job {
 					.build();
 	}
 
-	private DefaultDependentTasksExecutor<Integer, Integer> newTaskExecutor(final DistributedExecutorService executorService) {
-		return new DefaultDependentTasksExecutor<Integer, Integer>(taskExecutorConfig(executorService));
+	private DefaultDexecutor<Integer, Integer> newTaskExecutor(final DistributedExecutorService executorService) {
+		return new DefaultDexecutor<Integer, Integer>(taskExecutorConfig(executorService));
 	}
 
-	private DependentTasksExecutorConfig<Integer, Integer> taskExecutorConfig(final DistributedExecutorService executorService) {
-		return new DependentTasksExecutorConfig<Integer, Integer>(executionEngine(executorService), new SleepyTaskProvider());
+	private DexecutorConfig<Integer, Integer> taskExecutorConfig(final DistributedExecutorService executorService) {
+		return new DexecutorConfig<Integer, Integer>(executionEngine(executorService), new SleepyTaskProvider());
 	}
 
 	private InfinispanExecutionEngine<Integer, Integer> executionEngine(final DistributedExecutorService executorService) {
