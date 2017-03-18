@@ -33,7 +33,11 @@ package com.github.dexecutor.infinispan;
 public class Node {
 
 	public static void main(String[] args) throws Exception {
-		new Job().run(isMaster(args[0]), args[1], "dist");
+		if (args.length == 0) {
+			new Job().run(true, "TEST_NODE", "dist");
+		} else {			
+			new Job().run(isMaster(args[0]), args[1], "dist");
+		}
 	}
 
 	private static boolean isMaster(String string) {
